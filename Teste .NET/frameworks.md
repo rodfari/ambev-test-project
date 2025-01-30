@@ -1,9 +1,15 @@
 [Back to README](../README.md)
 
 ## Frameworks
-Our frameworks are the building blocks that enable us to create robust, efficient, and maintainable software solutions. They have been carefully selected to complement our tech stack and address specific development challenges we face in our projects.
+Our frameworks are the building blocks that enable us to create robust, 
+efficient, and maintainable software solutions. 
+They have been carefully selected to complement our tech stack and address specific development 
+challenges we face in our projects.
 
-These frameworks enhance our development process by providing tried-and-tested solutions to common problems, allowing our team to focus on building unique features and business logic. Each framework has been chosen for its ability to integrate seamlessly with our tech stack, its community support, and its alignment with our development principles.
+These frameworks enhance our development process by providing tried-and-tested solutions to common problems, 
+allowing our team to focus on building unique features and business logic. 
+Each framework has been chosen for its ability to integrate seamlessly with our tech stack, 
+its community support, and its alignment with our development principles.
 
 We use the following frameworks in this project:
 
@@ -27,6 +33,6 @@ Database:
 
 <br>
 <div style="display: flex; justify-content: space-between;">
-  <a href="./tech-stack.md">Previous: Tech Stack</a>
-  <a href="./general-api.md">Next: General API</a>
+  <a href="tech-stack.md">Previous: Tech Stack</a>
+  <a href="general-api.md">Next: General API</a>
 </div>

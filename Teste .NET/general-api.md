@@ -16,7 +16,10 @@ GET /products?_page=2&_size=20
 
 ### Ordering
 
-When requesting a collection of a resource, you can also specify the order of the elements in the collection using the query parameter `_order`. Simply indicate the desired order: ascending (`asc`) or descending (`desc`). If not specified, the default order will be ascending.
+When requesting a collection of a resource, you can also specify the order of the elements in 
+the collection using the query parameter `_order`. 
+Simply indicate the desired order: ascending (`asc`) or descending (`desc`). 
+If not specified, the default order will be ascending.
 
 **Note**
 
