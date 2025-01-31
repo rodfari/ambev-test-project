@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Responses;
+using MediatR;
 
-namespace Application.Features.Products.Command.Delete
+namespace Application.Features.Products.Command.Delete;
+public class DeleteProductCommand : IRequest<TResponse<string>>
 {
-    public class DeleteProductCommand
-    {
-        //TODO - add properties here and implement mediator
-    }
+    public int Id { get; set; }
 }

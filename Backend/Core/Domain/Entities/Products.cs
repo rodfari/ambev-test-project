@@ -1,4 +1,5 @@
 using Core.Domain.Entities;
+using Domain.Contracts;
 
 namespace Domain.Entities;
 
@@ -10,11 +11,12 @@ public class Products: DefaultEntity
     public string Category { get; set; }
     public string Image { get; set; }
 
-}
+    public void ValidateRules(){
+        //TODO: Implement validation rules
+    }
 
-public class ProductRating: DefaultEntity
-{
-    public int Rating { get; set; }
-    public Guid ProductId { get; set; }
-    public Products Product { get; set; }
+    public async Task<Products> SaveAsync(IProductRepository repository){
+        var result = await repository.AddAsync(this);
+        return result;
+    }
 }

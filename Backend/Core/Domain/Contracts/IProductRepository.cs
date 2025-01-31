@@ -3,7 +3,6 @@ using Domain.Entities;
 
 namespace Domain.Contracts;
 
-public interface IProductRepository: IGenericRepository<Products>
+public interface IProductRepository : IGenericRepository<Products>
 {
-    
 }

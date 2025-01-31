@@ -1,12 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation;
 
 namespace Application.Features.Products.Command.Delete
 {
-    public class DeleteProductCommandValidator
+    public class DeleteProductCommandValidator: AbstractValidator<DeleteProductCommand>
     {
-        //TODO - add properties here and implement FluentValidation
+        public DeleteProductCommandValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty().WithMessage("{PropertyName} is required.")
+                .NotNull()
+                .GreaterThan(0).WithMessage("{PropertyName} must be greater than 0.");
+        }
     }
 }

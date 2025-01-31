@@ -1,12 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Responses;
+using Domain.Contracts;
+using MediatR;
 
-namespace Application.Features.Products.Command.Delete
+namespace Application.Features.Products.Command.Delete;
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, TResponse<string>>
 {
-    public class DeleteProductCommandHandler
+    readonly IProductRepository _productRepository;
+    public DeleteProductCommandHandler(IProductRepository productRepository)
     {
-        //TODO - add properties here and implement mediator
+        _productRepository = productRepository;
+    }
+    public async Task<TResponse<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    {
+        await _productRepository.DeleteAsync(request.Id);
+        return new TResponse<string>
+        {
+            Success = true,
+            Message = "Product Deleted Successfully",
+            Data = string.Empty
+        };
     }
 }
