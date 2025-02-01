@@ -1,15 +1,12 @@
 using System.Linq.Expressions;
-using Core.Domain.Entities;
 
-namespace Core.Domain.Contracts;
+namespace Domain.Contracts;
 
-public interface IGenericRepository<T> where T : DefaultEntity
+public interface IGenericRepository<T> where T : class
 {
-    Task<T> GetByIdAsync(int id);
+    Task<T> GetByIdAsync(Guid id);
     Task<List<T>> GetAllAsync();
-    Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
     Task<T> AddAsync(T entity);
     Task<T> UpdateAsync(T entity);
-    Task DeleteAsync(int id);
-    Task DeleteAsync(T Entity);
+    Task DeleteAsync(Guid id);
 }

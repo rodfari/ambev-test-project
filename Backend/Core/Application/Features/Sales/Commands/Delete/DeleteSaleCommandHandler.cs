@@ -1,12 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Domain.Contracts;
+using Domain.Exceptions;
+using MediatR;
 
-namespace Application.Features.Sales.Commands.Delete
+namespace Application.Features.Sales.Commands.Delete;
+
+public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, Unit>
 {
-    public class DeleteSaleCommandHandler
+    private readonly ISaleRepository _saleRepository;
+
+    public DeleteSaleCommandHandler(ISaleRepository saleRepository)
     {
-        //TODO - Implement Handler
+        _saleRepository = saleRepository;
+    }
+
+    public async Task<Unit> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
+    {
+        var sale = await _saleRepository.GetByIdAsync(request.SaleId);
+        if (sale == null) throw new NotFoundException("Sale not found");
+
+        await _saleRepository.DeleteAsync(sale.Id);
+        return Unit.Value;
     }
 }

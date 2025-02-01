@@ -1,7 +1,10 @@
-namespace Application.Features.Sales.Commands.Delete
+using FluentValidation;
+
+namespace Application.Features.Sales.Commands.Delete;
+public class DeleteSaleCommandValidator : AbstractValidator<DeleteSaleCommand>
 {
-    public class DeleteSaleCommandValidator
+    public DeleteSaleCommandValidator()
     {
-        //TODO - Add Validation Rules
+        RuleFor(x => x.SaleId).NotEmpty();
     }
 }
