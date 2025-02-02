@@ -1,27 +1,50 @@
-using Application.Dtos;
+using Application.Model;
+using Application.Repository;
+using Application.Responses;
 using AutoMapper;
-using Domain.Contracts;
 using MediatR;
 
-public class GetSaleByIdQueryHandler : IRequestHandler<GetSaleByIdQuery, SaleDto>
+public class GetSaleByIdQueryHandler : IRequestHandler<GetSaleByIdQuery, TResponse<SaleReadModel>>
 {
-    private readonly ISaleRepository _salesRepository;
+    private readonly ISalesReadRepository _salesReadRepository;
     private readonly IMapper _mapper;
 
-    public GetSaleByIdQueryHandler(ISaleRepository salesRepository, IMapper mapper)
+    public GetSaleByIdQueryHandler(ISalesReadRepository salesReadRepository, IMapper mapper)
     {
-        _salesRepository = salesRepository;
+        _salesReadRepository = salesReadRepository;
         _mapper = mapper;
     }
 
-    public async Task<SaleDto> Handle(GetSaleByIdQuery request, CancellationToken cancellationToken)
+    public async Task<TResponse<SaleReadModel>> Handle(GetSaleByIdQuery request, CancellationToken cancellationToken)
     {
-        var sale = await _salesRepository.GetByIdAsync(request.SaleId);
-            
+        try
+        {
 
-        if (sale == null)
-            throw new KeyNotFoundException($"Sale with ID {request.SaleId} not found.");
+            var sale = await _salesReadRepository.GetByIdAsync(request.SaleId);
+            if (sale == null)
+                throw new KeyNotFoundException($"Sale with ID {request.SaleId} not found.");
 
-        return _mapper.Map<SaleDto>(sale);
+            return new TResponse<SaleReadModel>
+            {
+                Success = true,
+                Data = sale
+            };
+        }
+        catch(KeyNotFoundException ex)
+        {
+            return new TResponse<SaleReadModel>
+            {
+                Success = false,
+                Errors = new List<string> { ex.Message }
+            };
+        }
+        catch (Exception ex)
+        {
+            return new TResponse<SaleReadModel>
+            {
+                Success = false,
+                Errors = new List<string> { ex.Message }
+            };
+        }
     }
 }

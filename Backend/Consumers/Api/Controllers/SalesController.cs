@@ -19,10 +19,14 @@ public class SalesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<SaleDto>> GetSaleById(Guid id)
+    public async Task<ActionResult<SaleDto>> GetSaleById(string id)
     {
         var result = await _mediator.Send(new GetSaleByIdQuery(id));
-        return Ok(result);
+
+        if (!result.Success)
+            return BadRequest(new { Errors = result.Errors });
+            
+        return Ok(result.Data);
     }
 
     [HttpGet]

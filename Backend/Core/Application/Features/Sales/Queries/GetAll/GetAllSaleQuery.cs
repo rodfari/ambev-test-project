@@ -1,4 +1,3 @@
-using Application.Dtos;
 using Application.Model;
 using MediatR;
 
