@@ -1,8 +1,9 @@
 using Application.Dtos;
+using Application.Responses;
 using MediatR;
 namespace Application.Features.Sales.Commands.Update;
 
-public class UpdateSaleCommand : IRequest<Unit>
+public class UpdateSaleCommand : IRequest<TResponse<Unit>>
 {
     public Guid SaleId { get; set; }
     public string CustomerId { get; set; }

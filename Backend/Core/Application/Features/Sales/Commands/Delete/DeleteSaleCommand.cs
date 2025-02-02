@@ -1,12 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Responses;
 using MediatR;
 
 namespace Application.Features.Sales.Commands.Delete;
 
-public class DeleteSaleCommand : IRequest<Unit>
+public class DeleteSaleCommand : IRequest<TResponse<Unit>>
 {
+    public DeleteSaleCommand()
+    {
+        
+    }
+    public DeleteSaleCommand(Guid Id)
+    {
+        SaleId = Id;
+    }
     public Guid SaleId { get; set; }
 }

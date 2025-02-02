@@ -1,4 +1,5 @@
 using Domain.Common;
+using Domain.Exceptions;
 
 namespace Domain.Entities;
 
@@ -45,7 +46,7 @@ public class Sale
 
     public void AddItem(string productId, string productDescription, int quantity, decimal unitPrice)
     {
-        if (quantity > 20) throw new Exception("Cannot sell more than 20 of the same item.");
+        if (quantity > 20) throw new ItemAmountExceededException("Cannot sell more than 20 of the same item.");
         if (quantity < 1) throw new Exception("Quantity must be at least 1.");
 
         decimal discount = GetDiscount(quantity, unitPrice);

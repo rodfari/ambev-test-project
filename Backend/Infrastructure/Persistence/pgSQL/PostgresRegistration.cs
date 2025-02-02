@@ -1,9 +1,9 @@
-using Core.Domain.Contracts;
-using Infrastructure.Persistence.pgSQL.Repository;
+using Domain.Contracts;
+using pgSQL.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Persistence.pgSQL;
+namespace pgSQL;
 public static class PostgresRegistration
 {
     public static IServiceCollection AddPostgresDatabase(this IServiceCollection services, string connectionString)
@@ -12,9 +12,8 @@ public static class PostgresRegistration
         {
             options.UseNpgsql(connectionString);
         });
-        
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+        services.AddScoped<ISaleRepository, SaleRepository>();
         return services;
     }
 }

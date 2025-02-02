@@ -1,7 +1,7 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.pgSQL;
+namespace pgSQL;
 
 public class DataContext : DbContext
 {

@@ -1,10 +1,10 @@
+using Application.Responses;
 using Domain.Contracts;
-using Domain.Exceptions;
 using MediatR;
 
 namespace Application.Features.Sales.Commands.Delete;
 
-public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, Unit>
+public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, TResponse<Unit>>
 {
     private readonly ISaleRepository _saleRepository;
 
@@ -13,12 +13,20 @@ public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, Unit>
         _saleRepository = saleRepository;
     }
 
-    public async Task<Unit> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
+    public async Task<TResponse<Unit>> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
     {
         var sale = await _saleRepository.GetByIdAsync(request.SaleId);
-        if (sale == null) throw new NotFoundException("Sale not found");
+        if (sale == null) {
+            return new TResponse<Unit> { 
+                Success = false,
+                Message = "Sale not found" 
+            };
+        }
 
         await _saleRepository.DeleteAsync(sale.Id);
-        return Unit.Value;
+        return new TResponse<Unit> { 
+            Success = true,
+            Message = "Sale deleted successfully" 
+        };
     }
 }

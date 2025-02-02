@@ -1,5 +1,5 @@
 namespace Application.Responses;
-public class TResponse<T> where T : class
+public class TResponse<T>
 {
     public bool Success { get; set; }
     public string Message { get; set; }

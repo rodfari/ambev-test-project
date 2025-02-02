@@ -1,9 +1,10 @@
 using Application.Dtos;
+using Application.Responses;
 using MediatR;
 
 namespace Application.Features.Sales.Commands.Create;
 
-public class CreateSaleCommand : IRequest<Guid>
+public class CreateSaleCommand : IRequest<TResponse<Guid>>
 {
     public string CustomerId { get; set; }
     public string CustomerName { get; set; }

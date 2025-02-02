@@ -30,7 +30,7 @@ public class SalesConfiguration : IEntityTypeConfiguration<Sale>
 
         builder.HasMany(s => s.Items)
             .WithOne()
-            .HasForeignKey("SaleId")
+            .HasForeignKey(x => x.SaleId)
             .OnDelete(DeleteBehavior.Cascade);
 
         // builder.Property(s => s.CreatedAt)

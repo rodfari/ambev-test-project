@@ -2,14 +2,17 @@ namespace Domain.Entities;
 
 public class SaleItem
 {
-    public Guid Id { get; private set; }
-    public string ProductId { get; private set; } // External Identity
-    public string ProductDescription { get; private set; } // Denormalized
-    public int Quantity { get; private set; }
-    public decimal UnitPrice { get; private set; }
-    public decimal Discount { get; private set; }
-    public decimal Total { get; private set; }
-    public bool IsCancelled { get; private set; }
+    public Guid Id { get; set; }
+    public string ProductId { get; set; } // External Identity
+    public string ProductDescription { get; set; } // Denormalized
+    public int Quantity { get; set; }
+    public decimal UnitPrice { get; set; }
+    public decimal Discount { get; set; }
+    public decimal Total { get; set; }
+    public bool IsCancelled { get; set; }
+    public Guid SaleId { get; set; }
+    // public Sale Sale { get; set; }
+
     private SaleItem() { } // For EF Core
 
     public SaleItem(string productId, string productDescription, int quantity, decimal unitPrice, decimal discount)

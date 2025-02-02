@@ -1,9 +1,10 @@
 using Application.Dtos;
 using AutoMapper;
 using Domain.Contracts;
+using MediatR;
 
 namespace Application.Features.Sales.Queries;
-public class GetAllSaleQueryHandler
+public class GetAllSaleQueryHandler: IRequestHandler<GetAllSaleQuery, List<SaleDto>>
 {
     private readonly ISaleRepository _salesRepository;
     private readonly IMapper _mapper;
