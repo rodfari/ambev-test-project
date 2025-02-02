@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Core\Application\Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\pgSQL\pgSQL.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Persistence\MongoData\MongoData.csproj" />
   </ItemGroup>
 
 </Project>

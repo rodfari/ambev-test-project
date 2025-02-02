@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsApplication", "Tests\A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsApi", "Tests\Api\TestsApi.csproj", "{66F8B150-0F8C-4042-9F19-091F8C80AE6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB", "Infrastructure\Persistence\MongoDB\MongoDB.csproj", "{754C12E3-2AD3-4394-9207-A8BB4C38ACA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoData", "Infrastructure\Persistence\MongoData\MongoData.csproj", "{754C12E3-2AD3-4394-9207-A8BB4C38ACA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoConsole", "..\MongoConsole\MongoConsole.csproj", "{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}"
 EndProject

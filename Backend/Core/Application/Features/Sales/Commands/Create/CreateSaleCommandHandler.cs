@@ -1,3 +1,5 @@
+using Application.Model;
+using Application.Repository;
 using Application.Responses;
 using AutoMapper;
 using Domain.Contracts;
@@ -10,14 +12,21 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, TResp
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly ISalesReadRepository _salesReadRepository;
 
-    public CreateSaleCommandHandler(ISaleRepository saleRepository, IMapper mapper)
+    public CreateSaleCommandHandler(
+        ISaleRepository saleRepository, 
+        ISalesReadRepository salesReadRepository,
+        IMapper mapper)
     {
         _saleRepository = saleRepository;
+        _salesReadRepository = salesReadRepository;
         _mapper = mapper;
     }
 
-    public async Task<TResponse<Guid>> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
+    public async Task<TResponse<Guid>> Handle(
+        CreateSaleCommand request, 
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -36,6 +45,36 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, TResp
             }
 
             await _saleRepository.AddAsync(sale);
+            SaleReadModel saleReadModel = new SaleReadModel
+            {
+                Id = sale.Id.ToString(),
+                // SaleNumber = sale.number,
+                SaleDate = sale.SaleDate,
+                Customer = new CustomerInfo
+                {
+                    CustomerId = sale.CustomerId,
+                    Name = sale.CustomerName
+                },
+                Branch = new BranchInfo
+                {
+                    BranchId = sale.BranchId,
+                    Name = sale.BranchName
+                },
+                TotalAmount = sale.TotalAmount,
+                //Items = _mapper.Map<List<SaleItemReadModel>>(sale.Items),
+                Items = [.. sale.Items.Select(i => new SaleItemReadModel
+                {
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity,
+                    UnitPrice = i.UnitPrice
+                })],
+                IsCancelled = sale.IsCancelled
+                
+                
+            };
+
+            await _salesReadRepository.InsertAsync(saleReadModel);            
+
             return new TResponse<Guid>
             {
                 Success = true,

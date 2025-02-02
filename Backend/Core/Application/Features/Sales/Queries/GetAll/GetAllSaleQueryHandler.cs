@@ -1,23 +1,23 @@
-using Application.Dtos;
+using Application.Model;
+using Application.Repository;
 using AutoMapper;
-using Domain.Contracts;
 using MediatR;
 
 namespace Application.Features.Sales.Queries;
-public class GetAllSaleQueryHandler: IRequestHandler<GetAllSaleQuery, List<SaleDto>>
+public class GetAllSaleQueryHandler : IRequestHandler<GetAllSaleQuery, List<SaleReadModel>>
 {
-    private readonly ISaleRepository _salesRepository;
+    readonly ISalesReadRepository _salesReadRepository;
     private readonly IMapper _mapper;
 
-    public GetAllSaleQueryHandler(ISaleRepository salesRepository, IMapper mapper)
+    public GetAllSaleQueryHandler(ISalesReadRepository salesReadRepository, IMapper mapper)
     {
-        _salesRepository = salesRepository;
+        _salesReadRepository = salesReadRepository;
         _mapper = mapper;
     }
 
-public async Task<List<SaleDto>> Handle(GetAllSaleQuery request, CancellationToken cancellationToken)
+    public async Task<List<SaleReadModel>> Handle(GetAllSaleQuery request, CancellationToken cancellationToken)
     {
-        var sales = await _salesRepository.GetAllAsync();
-        return _mapper.Map<List<SaleDto>>(sales);
+        var sales = await _salesReadRepository.GetAllAsync(request.Page, request.PageSize);
+        return sales;
     }
 }

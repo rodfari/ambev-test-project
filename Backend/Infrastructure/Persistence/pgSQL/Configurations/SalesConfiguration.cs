@@ -12,10 +12,6 @@ public class SalesConfiguration : IEntityTypeConfiguration<Sale>
 
         builder.HasKey(s => s.Id);
 
-        // builder.Property(s => s.SaleNumber)
-        //     .IsRequired()
-        //     .HasMaxLength(50);
-
         builder.Property(s => s.CustomerId)
             .IsRequired();
 

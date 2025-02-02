@@ -1,5 +1,6 @@
 using pgSQL;
 using Application;
+using MongoData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 string pgConn = builder.Configuration.GetConnectionString("pgConnection")!;
-string mongoConn = builder.Configuration.GetConnectionString("mongoConnection")!;
+
+var mongoSettings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
+string mongoConn = mongoSettings.ConnectionString!;
+
 builder.Services.AddPostgresDatabase(pgConn);
+builder.Services.AddMongoServices(new MongoSettings { ConnectionString = mongoConn, DatabaseName = "Sales" });
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();

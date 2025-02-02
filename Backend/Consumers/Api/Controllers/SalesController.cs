@@ -3,6 +3,7 @@ using Application.Features.Sales.Commands.Create;
 using Application.Features.Sales.Commands.Delete;
 using Application.Features.Sales.Commands.Update;
 using Application.Features.Sales.Queries;
+using Application.Model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<SaleDto>>> GetSalesList()
+    public async Task<ActionResult<List<SaleReadModel>>> GetSalesList()
     {
         var result = await _mediator.Send(new GetAllSaleQuery());
         return Ok(result);
