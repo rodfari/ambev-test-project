@@ -15,6 +15,7 @@ public class MappingProfiles: Profile
         CreateMap<CreateSaleCommand, Sale>()
         .ForMember(dest => dest.Items, opt => opt.Ignore())
         .AfterMap((ori, dest) => {
+            dest.SaleDate = DateTime.UtcNow;
             foreach (var item in ori.Items)
             {
                 dest.AddItem(item.ProductId, item.ProductDescription, item.Quantity, item.UnitPrice);
