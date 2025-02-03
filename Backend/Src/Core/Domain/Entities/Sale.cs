@@ -7,6 +7,7 @@ public class Sale
 {
     public Guid Id { get; set; }
     public DateTime SaleDate { get; set; }
+    public int SaleNumber { get; set; }
     public string CustomerId { get; set; } // External Identity
     public string CustomerName { get; set; } // Denormalized
     public string BranchId { get; set; } // External Identity

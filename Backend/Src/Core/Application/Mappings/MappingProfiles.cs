@@ -38,12 +38,14 @@ public class MappingProfiles: Profile
                 BranchId = ori.BranchId,
                 Name = ori.BranchName
             };
-
+            
             dest.Items = [.. ori.Items.Select(i => new SaleItemReadModel
             {
                 ProductId = i.ProductId,
                 Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
+                UnitPrice = i.UnitPrice, 
+                Discount = i.Discount,
+                Total = i.Total,
             })];
         });
 

@@ -1,3 +1,4 @@
+using Application.Repository;
 using Application.Responses;
 using Domain.Contracts;
 using MediatR;
@@ -7,10 +8,11 @@ namespace Application.Features.Sales.Commands.Delete;
 public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, TResponse<Unit>>
 {
     private readonly ISaleRepository _saleRepository;
-
-    public DeleteSaleCommandHandler(ISaleRepository saleRepository)
+    private readonly ISalesReadRepository _salesReadRepository;
+    public DeleteSaleCommandHandler(ISaleRepository saleRepository, ISalesReadRepository salesReadRepository)
     {
         _saleRepository = saleRepository;
+        _salesReadRepository = salesReadRepository;
     }
 
     public async Task<TResponse<Unit>> Handle(DeleteSaleCommand request, CancellationToken cancellationToken)
@@ -24,8 +26,9 @@ public class DeleteSaleCommandHandler : IRequestHandler<DeleteSaleCommand, TResp
         }
 
         await _saleRepository.DeleteAsync(sale.Id);
+        await _salesReadRepository.DeleteAsync(sale.Id.ToString());
         return new TResponse<Unit> { 
-            Success = true,
+            Success = true, 
             Message = "Sale deleted successfully" 
         };
     }
