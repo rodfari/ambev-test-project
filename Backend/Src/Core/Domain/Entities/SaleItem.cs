@@ -15,21 +15,21 @@ public class SaleItem
 
     private SaleItem() { } // For EF Core
 
-    public SaleItem(string productId, string productDescription, int quantity, decimal unitPrice, decimal discount)
+    public SaleItem(string productId, string productName, int quantity, decimal unitPrice, decimal discount)
     {
         Id = Guid.NewGuid();
         ProductId = productId;
-        ProductName = productDescription;
+        ProductName = productName;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Discount = discount;
         Total = (Quantity * UnitPrice) - Discount;
     }
 
-    public SaleItem(string productId, string productDescription, int quantity, decimal unitPrice)
+    public SaleItem(string productId, string productName, int quantity, decimal unitPrice)
     {
         ProductId = productId;
-        ProductName = productDescription;
+        ProductName = productName;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Total = (Quantity * UnitPrice) - Discount;

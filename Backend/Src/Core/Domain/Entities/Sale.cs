@@ -39,7 +39,7 @@ public class Sale
         decimal unitPrice)
     {
         if (quantity > 20) throw new ItemAmountExceededException("Cannot sell more than 20 of the same item.");
-        if (quantity < 1) throw new Exception("Quantity must be at least 1.");
+        if (quantity < 1) throw new MinimumItemRequiredException("Quantity must be at least 1.");
 
         decimal discount = GetDiscount(quantity, unitPrice);
         var item = new SaleItem(productId, productDescription, quantity, unitPrice, discount);
