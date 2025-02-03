@@ -1,6 +1,7 @@
 using pgSQL;
 using Application;
 using MongoData;
+using Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,16 +27,20 @@ builder.Services.AddApplicationServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+DatabaseInitialization
+.CreateAndSeed(app);
+
 
 app.Run();

@@ -17,6 +17,7 @@ namespace pgSQL.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     SaleDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    SaleNumber = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<string>(type: "text", nullable: false),
                     CustomerName = table.Column<string>(type: "text", nullable: true),
                     BranchId = table.Column<string>(type: "text", nullable: false),
@@ -35,7 +36,7 @@ namespace pgSQL.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<string>(type: "text", nullable: true),
-                    ProductDescription = table.Column<string>(type: "text", nullable: true),
+                    ProductName = table.Column<string>(type: "text", nullable: true),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     Discount = table.Column<decimal>(type: "numeric", nullable: false),

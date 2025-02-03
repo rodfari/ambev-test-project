@@ -12,7 +12,7 @@ using pgSQL;
 namespace pgSQL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250202033659_Initial")]
+    [Migration("20250203175437_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -51,6 +51,9 @@ namespace pgSQL.Migrations
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("SaleNumber")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -71,10 +74,10 @@ namespace pgSQL.Migrations
                     b.Property<bool>("IsCancelled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ProductDescription")
+                    b.Property<string>("ProductId")
                         .HasColumnType("text");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("ProductName")
                         .HasColumnType("text");
 
                     b.Property<int>("Quantity")

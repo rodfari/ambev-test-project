@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoConsole", "..\MongoConsole\MongoConsole.csproj", "{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B0BA0B82-2609-4429-9963-D3E4486C4FF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsApi", "Tests\Api\TestsApi.csproj", "{4213284B-4769-439E-8243-C0B231E5C35D}"
@@ -42,10 +40,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{241D0DA3-6082-43FF-9B2F-5FBE6DF9FB8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4213284B-4769-439E-8243-C0B231E5C35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4213284B-4769-439E-8243-C0B231E5C35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4213284B-4769-439E-8243-C0B231E5C35D}.Release|Any CPU.ActiveCfg = Release|Any CPU

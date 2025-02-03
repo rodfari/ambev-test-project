@@ -1,37 +1,68 @@
 version: '3.8'
-
 services:
+
   postgres:
-    image: postgres:15
-    container_name: devstore_postgres
-    restart: always
+    image: postgres:17
+    container_name: ambev_postgres
     environment:
-      POSTGRES_USER: devstore_user
-      POSTGRES_PASSWORD: devstore_pass
-      POSTGRES_DB: devstore
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password3
+      POSTGRES_DB: SalesDB
     ports:
-      - "5432:5432"
+      - "54320:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+    networks:
+      - amb_backend
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 10s
+        timeout: 10s
+        retries: 5
   mongo:
     image: mongo:6
-    container_name: devstore_mongo
-    restart: always
+    container_name: ambev_mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - amb_backend
 
   mongo-express:
     image: mongo-express
-    container_name: devstore_mongo_express
-    restart: always
+    container_name: ambev_mongo_express
     ports:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_SERVER: mongo
-
+      # ME_CONFIG_BASICAUTH_USERNAME: root
+      # ME_CONFIG_BASICAUTH_PASSWORD: password
+    networks:
+      - amb_backend
+  webapi:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: ambev_webapi
+    ports:
+      - "3300:80"
+    expose:
+      - "80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__pgConnection=Host=postgres;Port=5432;Database=SalesDB;Username=postgres;Password=password3
+    networks:
+      - amb_backend
+    depends_on:
+      #- db-mysql
+      postgres:
+        condition: service_healthy
 volumes:
   postgres_data:
   mongo_data:
+
+networks:
+  amb_backend:
+    driver: bridge
