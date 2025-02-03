@@ -4,7 +4,7 @@ public class SaleItem
 {
     public Guid Id { get; set; }
     public string ProductId { get; set; } // External Identity
-    public string ProductDescription { get; set; } // Denormalized
+    public string ProductName { get; set; } // Denormalized
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
@@ -19,7 +19,7 @@ public class SaleItem
     {
         Id = Guid.NewGuid();
         ProductId = productId;
-        ProductDescription = productDescription;
+        ProductName = productDescription;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Discount = discount;
@@ -29,7 +29,7 @@ public class SaleItem
     public SaleItem(string productId, string productDescription, int quantity, decimal unitPrice)
     {
         ProductId = productId;
-        ProductDescription = productDescription;
+        ProductName = productDescription;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Total = (Quantity * UnitPrice) - Discount;
