@@ -19,7 +19,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<SaleDto>> GetSaleById(string id)
+    public async Task<IActionResult> GetSaleById(string id)
     {
         var result = await _mediator.Send(new GetSaleByIdQuery(id));
 
@@ -37,18 +37,18 @@ public class SalesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<SaleDto>> CreateSale([FromBody] CreateSaleCommand createSaleCommand)
+    public async Task<IActionResult> CreateSale([FromBody] CreateSaleCommand createSaleCommand)
     {
         var result = await _mediator.Send(createSaleCommand);
 
         if(!result.Success)
             return BadRequest(result.Errors);
 
-        return Created("api/GetById", new { id = result.Data });
+        return CreatedAtAction(nameof(GetSaleById), new { id = result.Data }, result.Data);
     }
 
     [HttpPut]
-    public async Task<ActionResult<SaleDto>> UpdateSale([FromBody] UpdateSaleCommand updateSaleCommand)
+    public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleCommand updateSaleCommand)
     {
         var result = await _mediator.Send(updateSaleCommand);
 
@@ -59,7 +59,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<SaleDto>> DeleteSale(Guid id)
+    public async Task<IActionResult> DeleteSale(Guid id)
     {
         var result = await _mediator.Send(new DeleteSaleCommand(id));
 
