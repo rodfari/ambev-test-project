@@ -31,20 +31,12 @@ public class Sale
     {
         _domainEvents.Clear();
     }
-    private Sale() { } // For EF Core
 
-    public Sale(string customerId, string customerName, string branchId, string branchName, DateTime saleDate)
-    {
-        Id = Guid.NewGuid();
-        CustomerId = customerId;
-        CustomerName = customerName;
-        BranchId = branchId;
-        BranchName = branchName;
-        SaleDate = saleDate;
-        IsCancelled = false;
-    }
-
-    public void AddItem(string productId, string productDescription, int quantity, decimal unitPrice)
+    public void AddItem(
+        string productId, 
+        string productDescription, 
+        int quantity, 
+        decimal unitPrice)
     {
         if (quantity > 20) throw new ItemAmountExceededException("Cannot sell more than 20 of the same item.");
         if (quantity < 1) throw new Exception("Quantity must be at least 1.");

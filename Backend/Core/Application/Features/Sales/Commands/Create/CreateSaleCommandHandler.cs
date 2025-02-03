@@ -30,48 +30,10 @@ public class CreateSaleCommandHandler : IRequestHandler<CreateSaleCommand, TResp
     {
         try
         {
+            Sale sale = _mapper.Map<Sale>(request);
 
-            var sale = new Sale(
-                request.CustomerId,
-                request.CustomerName,
-                request.BranchId,
-                request.BranchName,
-                DateTime.UtcNow
-            );
-
-            foreach (var item in request.Items)
-            {
-                sale.AddItem(item.ProductId, item.ProductDescription, item.Quantity, item.UnitPrice);
-            }
-
-            await _saleRepository.AddAsync(sale);
-            SaleReadModel saleReadModel = new SaleReadModel
-            {
-                Id = sale.Id.ToString(),
-                // SaleNumber = sale.number,
-                SaleDate = sale.SaleDate,
-                Customer = new CustomerInfo
-                {
-                    CustomerId = sale.CustomerId,
-                    Name = sale.CustomerName
-                },
-                Branch = new BranchInfo
-                {
-                    BranchId = sale.BranchId,
-                    Name = sale.BranchName
-                },
-                TotalAmount = sale.TotalAmount,
-                //Items = _mapper.Map<List<SaleItemReadModel>>(sale.Items),
-                Items = [.. sale.Items.Select(i => new SaleItemReadModel
-                {
-                    ProductId = i.ProductId,
-                    Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
-                })],
-                IsCancelled = sale.IsCancelled
-                
-                
-            };
+            var newSale = await _saleRepository.AddAsync(sale);
+            SaleReadModel saleReadModel = _mapper.Map<SaleReadModel>(newSale);
 
             await _salesReadRepository.InsertAsync(saleReadModel);            
 

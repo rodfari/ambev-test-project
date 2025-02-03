@@ -13,10 +13,14 @@ builder.Services.AddSwaggerGen();
 string pgConn = builder.Configuration.GetConnectionString("pgConnection")!;
 
 var mongoSettings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
-string mongoConn = mongoSettings.ConnectionString!;
 
 builder.Services.AddPostgresDatabase(pgConn);
-builder.Services.AddMongoServices(new MongoSettings { ConnectionString = mongoConn, DatabaseName = "Sales" });
+
+builder.Services.AddMongoServices(setting => {
+    setting.ConnectionString = mongoSettings!.ConnectionString;
+    setting.DatabaseName = mongoSettings.DatabaseName;
+});
+
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
